@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import{ useState, useEffect } from 'react'
+import Navigation from "./components/Navigation";
+import Tommy from "./components/Tommy";
+import { Routes, Route } from "react-router-dom"
+import BigDrop from "./components/BigDrop";
+import Cuker from "./components/Cuker";
 
-function App() {
+
+const App = () => {
+  const [isLoading,setIsLoading] = useState(true)
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+      }, 700);
+  },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+		<>
+      { isLoading && <div className="div-loading">Loading...</div>}
+      { !isLoading && <div className='app'>
+        <Navigation />
+        <Routes>
+          <Route path='/' element={<Tommy />}></Route>
+          <Route path='BigDrop' element={<BigDrop />}></Route>
+          <Route path='Cuker' element={<Cuker />}></Route>
+        </Routes>
+      </div>}
+		</>
+	);
 }
 
 export default App;
